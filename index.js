@@ -35,6 +35,10 @@ FCM.getFCMToken = () => {
     return RNFIRMessaging.getFCMToken();
 };
 
+FCM.restartFCM = () => {
+    return RNFIRMessaging.restartFCM();
+}
+
 FCM.requestPermissions = () => {
     return RNFIRMessaging.requestPermissions();
 };
