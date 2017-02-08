@@ -28,6 +28,7 @@ import android.util.Log;
 
 import android.content.Context;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
@@ -72,6 +73,16 @@ public class FIRMessagingModule extends ReactContextBaseJavaModule implements Li
     public void getFCMToken(Promise promise) {
         Log.d(TAG, "Firebase token: " + FirebaseInstanceId.getInstance().getToken());
         promise.resolve(FirebaseInstanceId.getInstance().getToken());
+    }
+
+    @ReactMethod
+    public void restartFCM(Promise promise) {
+        try {
+            FirebaseInstanceId.getInstance().deleteInstanceId();
+            promise.resolve(FirebaseInstanceId.getInstance().getToken());
+        } catch (IOException e) {
+            promise.reject("FAIL", "Restart fcm fail");
+        }
     }
 
     @ReactMethod
