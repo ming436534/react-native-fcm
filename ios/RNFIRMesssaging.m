@@ -239,6 +239,16 @@ RCT_EXPORT_METHOD(getFCMToken:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromi
   resolve([[FIRInstanceID instanceID] token]);
 }
 
+RCT_EXPORT_METHOD(restartFCM:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+{
+  [[FIRInstanceID instanceID] deleteIDWithHandler:^(NSError * _Nullable error) {
+    [[FIRInstanceID instanceID] getIDWithHandler:^(NSString * _Nullable identity, NSError * _Nullable error) {
+      resolve([[FIRInstanceID instanceID] token]);
+    }];
+  }
+  ];
+}
+
 - (void) onTokenRefresh
 {
   [_bridge.eventDispatcher sendDeviceEventWithName:@"FCMTokenRefreshed" body:[[FIRInstanceID instanceID] token]];
