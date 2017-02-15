@@ -36,7 +36,7 @@ FCM.getFCMToken = () => {
 };
 
 FCM.restartFCM = () => {
-    return RNFIRMessaging.restartFCM();
+    return RNFIRMessaging.restartFCM(); // use listener to get new token
 }
 
 FCM.requestPermissions = () => {
